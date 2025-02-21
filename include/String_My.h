@@ -68,6 +68,7 @@ public:
     const char& operator[](size_t index) const{
         return data[index];
     }
+    // += / == / + 
 
 
 
