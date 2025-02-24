@@ -130,7 +130,7 @@ public:
     }
     
     void insert(size_t pos, const char *str){
-        if(str == nullptr || *str == "\0")return;
+        if(str == nullptr || *str == '\0')return;
         if(pos > len)return;
         size_t str_len = strlen(str);
         size_t n_len = str_len + len;
@@ -155,7 +155,7 @@ public:
 
     String substr(size_t pos, size_t length){
         if(pos > len)return String();
-
+        return String();
     }
 
     //输入输出 
@@ -174,8 +174,8 @@ public:
         if(io.good() == false)return io;
         
         do{
-            if(str.len + 1 >= str.cap)
-                reserve(str.cap * 2);
+            // if(str.len + 1 >= str.cap)
+            //     reserve(str.cap * 2);
             str += c;
         }while(io.get(c) && c != '\n' && c != '\0' && !std::isspace(c));
         
