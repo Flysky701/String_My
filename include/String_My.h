@@ -153,16 +153,40 @@ public:
         data[len] = '\0';
     }
 
+    String substr(size_t pos, size_t length){
+        if(pos + length > len)return nullptr;
+        String n_str;
+        n_str.data = memcpy(pos, length);
+        n_str.len = length;
+        n_str.cap = length + 1;
+        return n_str;
+    }
+
     //输入输出 
     friend std::ostream& operator<<(std::ostream os, String& str){
         if(str.data != nullptr)
             os << str.data; 
-        else os << "";
+        else 
+            os << "";
+        return os;
     }
-    friend std::itream& operator>>(std::istream io)
+    friend std::istream& operator>>(std::istream& io, String& str){
+        str.clear();
+        char c;
+
+        while (io.get(c) && std::isspace(c)) {}
+        if(io.good() == false)return io;
+        
+        do{
+            if(str.len + 1 >= str.cap)
+                reserve(str.cap * 2);
+            str += c;
+        }while(io.get(c) && c != '\n' && c != '\0' && !std::isspace(c));
+        
+        return io;
+    }
 
    
-
     // 内存管理
     void reserve(size_t n_cap) {
         if (n_cap <= cap) return;
@@ -174,6 +198,7 @@ public:
         data = n_data;
         cap = n_cap;
     }
+
     void shrink_to_fit(){
         if(cap > len + 1)
             reserve(len + 1);
