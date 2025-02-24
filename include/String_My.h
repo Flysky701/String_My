@@ -109,8 +109,8 @@ public:
         return data[index];
     }
 
-    String& operator==(const String &other){
-        if(len != other.len)return false;
+    bool operator==(const String &other) const {
+        if (len != other.len) return false;
         return memcmp(data, other.data, len) == 0;
     }
 
@@ -118,14 +118,14 @@ public:
     size_t size(){
         return this -> len;
     }
-    size_t capaccity(){
+    size_t capaccity() const{
         return this -> cap;
     }
     bool empty(){
         return len == 0 ? true : false;
     }
     void clear(){
-        data[0] = '\0';
+        if(data)data[0] = '\0';
         len = 0;
     }
     
@@ -154,16 +154,12 @@ public:
     }
 
     String substr(size_t pos, size_t length){
-        if(pos + length > len)return nullptr;
-        String n_str;
-        n_str.data = memcpy(pos, length);
-        n_str.len = length;
-        n_str.cap = length + 1;
-        return n_str;
+        if(pos > len)return String();
+
     }
 
     //输入输出 
-    friend std::ostream& operator<<(std::ostream os, String& str){
+    friend std::ostream& operator<<(std::ostream &os, String& str){
         if(str.data != nullptr)
             os << str.data; 
         else 
@@ -200,8 +196,14 @@ public:
     }
 
     void shrink_to_fit(){
-        if(cap > len + 1)
-            reserve(len + 1);
+        if(cap > len + 1){
+            if(len == 0){
+                delete[] data;
+                cap = 0;
+            }
+            else 
+                reserve(len + 1);
+        }
     }
     
 private:
