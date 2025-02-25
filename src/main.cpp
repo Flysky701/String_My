@@ -33,12 +33,15 @@ int main(){
     a2.insert(0, "0");
     cout << (a1 == a2 ? "Yes" : "No") << endl;
 
-    // String s1 = a1.substr(0, 2);
-    // cout << s1 << endl;
-
-    String s2;
-    cin >> s2;
+    String s1 = "0123456789";
+    cout << s1 << endl;
+    String s2 = s1.substr(2, 2);
+    cout << s2 << endl;
+    s2 = s1.substr(9, 2);
     cout << s2 << endl;
 
-
+    cin >> s2;
+    cout << s2 << endl;
+    cout << "END" << endl;
+    return 0;
 }

@@ -153,9 +153,16 @@ public:
         data[len] = '\0';
     }
 
-    String substr(size_t pos, size_t length){
-        if(pos > len)return String();
-        return String();
+    String substr(size_t pos, size_t length = 0){
+        if(pos >= len)return String();
+        size_t n_len = (length == 0 || pos + length > len) ? len - pos : length;
+        String sub;
+        sub.reserve(n_len + 1);
+        if(n_len > 0)
+            memcpy(sub.data, data + pos, n_len);
+        sub.data[n_len] = '\0';
+        sub.len = n_len;
+        return sub;
     }
 
     //输入输出 
