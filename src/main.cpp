@@ -5,7 +5,15 @@ using std::endl;
 using std::cout;
 using std::cin;
 
+void test(){
+    cout << "test" << std::endl;
+    cout << "电脑2提交测试" << std::endl;
+}
+
 int main(){
+
+    test();
+    
     cout << "test1" << std::endl;
 
     String a1("abcd");
